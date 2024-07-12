@@ -14,14 +14,14 @@ export function TodoList() {
         e.preventDefault()
         if (newTask.trim()) {
             const taskId = Date.now() + Math.random().toString(36).substring(2);
-            setTasks([...tasks, { id: taskId, text: newTask, completed: false}])
+            setTasks([...tasks, { taskId: taskId, text: newTask, completed: false}])
             setNewTask('')
         }
     }
 
-    // function removeTask(id){
-    //     setTasks(tasks.filter((task) => task.id !==id));
-    // }
+    function removeTask(id){
+        setTasks(tasks.filter((task) => task.taskId !== id));
+    }
     
     return(
         <div>
@@ -33,9 +33,8 @@ export function TodoList() {
                 {tasks.map((task) => (
                     <li key={task.taskId}>{task.text}
                     
-                        <button className="shadow-md bg-white rounded-md px-[10px] py-[5px]" 
-                    
-                       
+                        <button onClick={() => removeTask(task.taskId)} className="shadow-md bg-white rounded-md px-[10px] py-[5px]"                  
+                        
                         >Delete</button>
                     
                     </li>
