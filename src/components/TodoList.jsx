@@ -3,8 +3,13 @@ import React, { useState } from 'react';
 export function TodoList() {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState("");
-
-
+    
+    // useEffect(() => {
+    //    const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+    //    if(savedTasks) {
+    //     setTasks(savedTasks);
+    //    }
+    // });
 
     function handleChange(e) {            
         setNewTask(e.target.value)        //passing value of an input field
@@ -17,6 +22,10 @@ export function TodoList() {
             setTasks([...tasks, { taskId: taskId, text: newTask, completed: false}])
             setNewTask('')
         }
+        // const updatedTasks = [...tasks, newTask];
+        // setTasks(updatedTasks);
+        // setNewTask('');
+        // localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     }
 
     function removeTask(id){
