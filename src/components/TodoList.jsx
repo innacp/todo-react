@@ -5,9 +5,9 @@ export function TodoList() {
     const [newTask, setNewTask] = useState("");
     
     useEffect(() => {
-       const savedTasks = JSON.parse(localStorage.getItem('tasks'));
-       if(savedTasks) {
-        setTasks(savedTasks);
+       const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+       if(storedTasks) {
+        setTasks(storedTasks);
        }
     }, []);
 
@@ -33,7 +33,10 @@ export function TodoList() {
     }
 
     function removeTask(id){
-        setTasks(tasks.filter((task) => task.taskId !== id));
+        const updatedTasks = tasks.filter((task) => task.taskId !== id)
+        setTasks(updatedTasks);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        // setTasks(tasks.filter((task) => task.taskId !== id));
     }
     
     return(
