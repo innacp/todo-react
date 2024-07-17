@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export function TodoList() {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState("");
     
-    // useEffect(() => {
-    //    const savedTasks = JSON.parse(localStorage.getItem('tasks'));
-    //    if(savedTasks) {
-    //     setTasks(savedTasks);
-    //    }
-    // });
+    useEffect(() => {
+       const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+       if(storedTasks) {
+        setTasks(storedTasks);
+       }
+    }, []);
 
     function handleChange(e) {            
         setNewTask(e.target.value)        //passing value of an input field
@@ -30,6 +30,9 @@ export function TodoList() {
 
     function removeTask(id){
         setTasks(tasks.filter((task) => task.taskId !== id));
+        const updatedTasks = tasks.filter((task) => task.taskId !== id)
+        setTasks(updatedTasks);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     }
     
     return(
