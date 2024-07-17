@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export function TodoList() {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState("");
     
+    useEffect(() => {
+       const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+       if(storedTasks) {
+        setTasks(storedTasks);
+       }
+    }, []);
     useEffect(() => {
        const storedTasks = JSON.parse(localStorage.getItem('tasks'));
        if(storedTasks) {
@@ -19,8 +26,12 @@ export function TodoList() {
         e.preventDefault()
         if (newTask.trim()) {
             const taskId = Date.now() + Math.random().toString(36).substring(2);
-            setTasks([...tasks, { taskId: taskId, text: newTask, completed: false}])
-            setNewTask('')
+            const updatedTasks = ([...tasks, { taskId: taskId, text: newTask, completed: false}]);
+            setTasks(updatedTasks);
+            setNewTask('');
+            localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+            // setTasks([...tasks, { taskId: taskId, text: newTask, completed: false}])
+            // setNewTask('')
         }
         // const updatedTasks = [...tasks, newTask];
         // setTasks(updatedTasks);
