@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import React, { useState, useEffect } from 'react';
+
 
 export function TodoList() {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState("");
     
-    useEffect(() => {
-       const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-       if(storedTasks) {
-        setTasks(storedTasks);
-       }
-    }, []);
     useEffect(() => {
        const storedTasks = JSON.parse(localStorage.getItem('tasks'));
        if(storedTasks) {
