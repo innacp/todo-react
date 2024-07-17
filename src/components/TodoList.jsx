@@ -24,20 +24,23 @@ export function TodoList() {
             setTasks(updatedTasks);
             setNewTask('');
             localStorage.setItem('tasks', JSON.stringify(updatedTasks));
-            // setTasks([...tasks, { taskId: taskId, text: newTask, completed: false}])
-            // setNewTask('')
         }
-        // const updatedTasks = [...tasks, newTask];
-        // setTasks(updatedTasks);
-        // setNewTask('');
-        // localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     }
 
-    function removeTask(id){
-        setTasks(tasks.filter((task) => task.taskId !== id));
+    function removeTask(id){        
         const updatedTasks = tasks.filter((task) => task.taskId !== id)
         setTasks(updatedTasks);
         localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    }
+
+    function toggleTaskCompletion(taskId) {
+        const updatedTasks = tasks.map(task => {
+            if (task.taskId === taskId) {
+                return {...task, completed: !task.completed}
+            }
+            return task;
+        });
+        setTasks(updatedTasks);        
     }
     
     return(
@@ -48,7 +51,10 @@ export function TodoList() {
             </form>
             <ul>
                 {tasks.map((task) => (
-                    <li key={task.taskId}>{task.text}
+                    <li key={task.taskId}>
+                        <span className={`task-text ${task.completed ? 'completed' : ''}`} onClick={() => toggleTaskCompletion(task.taskId)} >
+                        {task.text}
+                        </span>
                     
                         <button onClick={() => removeTask(task.taskId)} className="shadow-md bg-white rounded-md px-[10px] py-[5px]"                  
                         

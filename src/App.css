@@ -2,6 +2,8 @@ body {
     font-family: "Roboto Mono", monospace;
     display: grid;
     place-items: center;
-    /* justify-content: center;
-    align-items: center; */
+}
+
+.completed {
+    text-decoration: line-through;
 }
